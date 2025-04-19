@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suraj Bari | Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .typing::after {
+      content: '|';
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    .navbar-menu {
+      display: none;
+    }
+    .navbar-toggle:checked + .navbar-menu {
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 bg-black/80 backdrop-blur border-b border-white/10">
+    <nav class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-lime-800">Suraj Bari</h1>
+
+      <!-- Toggle Button -->
+      <div class="lg:hidden">
+        <label for="navbar-toggle" class="text-white cursor-pointer">
+          <i class="ph ph-list text-3xl"></i>
+        </label>
+        <input type="checkbox" id="navbar-toggle" class="hidden">
+      </div>
+
+      <!-- Navbar Links -->
+      <ul class="hidden lg:flex space-x-6 text-gray-300 font-medium text-sm">
+        <li><a href="#home" class="hover:text-pink-400">Home</a></li>
+        <li><a href="#experience" class="hover:text-pink-400">Experience</a></li>
+        <li><a href="#skills" class="hover:text-pink-400">Skills</a></li>
+        <li><a href="#contact" class="hover:text-pink-400">Contact</a></li>
+      </ul>
+
+      <!-- Mobile Menu -->
+      <ul class="navbar-menu lg:hidden absolute top-16 left-0 w-full bg-black p-6 space-y-6 text-center">
+        <li><a href="#home" class="hover:text-pink-400">Home</a></li>
+        <li><a href="#experience" class="hover:text-pink-400">Experience</a></li>
+        <li><a href="#skills" class="hover:text-pink-400">Skills</a></li>
+        <li><a href="#contact" class="hover:text-pink-400">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex items-center justify-center p-6">
+    <div class="text-center max-w-2xl w-full glass rounded-2xl p-10 shadow-xl animate-fade-in" data-aos="fade-up">
+      <img src="https://media.licdn.com/dms/image/v2/D4D03AQHbAjhxNoPrCw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1675939813678?e=1750291200&v=beta&t=iJWMXW_wT-Ojt23A5RgO1PYH2v9uMMDcJ4PAwg2uTQs" alt="Suraj Bari" class="w-32 h-32 rounded-full mx-auto border-4 border-purple-500 mb-6 shadow-md hover:scale-105 transition" />
+      <h1 class="text-4xl sm:text-5xl font-extrabold mb-2 text-white">Suraj Bari</h1>
+      <p id="typedText" class="text-xl text-pink-400 mb-4 typing">Web Developer </p>
+      <p class="text-gray-300 mb-6">I build sleek,AWS architecture & high-performance frontends using modern JavaScript and Tailwind CSS with React. frameworks. Always chasing clean code & seamless user experiences.</p>
+
+      <div class="flex justify-center space-x-6 mb-6">
+        <a href="https://github.com/surajbari" target="_blank" class="hover:scale-110 transition text-gray-400 hover:text-white">
+          <i class="ph ph-github-logo text-3xl"></i>
+        </a>
+        <a href="https://linkedin.com/in/surajbari" target="_blank" class="hover:scale-110 transition text-gray-400 hover:text-blue-400">
+          <i class="ph ph-linkedin-logo text-3xl"></i>
+        </a>
+        <a href="https://instagram.com/surajbari" target="_blank" class="hover:scale-110 transition text-gray-400 hover:text-pink-500">
+          <i class="ph ph-instagram-logo text-3xl"></i>
+        </a>
+      </div>
+
+      <div class="flex justify-center gap-4">
+        <button class="bg-pink-600 hover:bg-pink-700 transition px-6 py-2 rounded-full font-semibold shadow-lg">Contact Me</button>
+        <a href="Suraj-Bari-Resume.pdf" download class="bg-white text-black font-semibold px-6 py-2 rounded-full shadow-md hover:bg-gray-200 transition">
+          Download Resume
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Roadmap -->
+  <section id="experience" class="py-20 px-4 bg-gradient-to-b from-black to-gray-900">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-4xl font-bold text-white text-center mb-12" data-aos="fade-up">My Journey</h2>
+      <div class="relative border-l-4 border-pink-500 pl-6 space-y-12">
+        <div class="group relative" data-aos="fade-right">
+          <div class="absolute w-4 h-4 bg-pink-500 rounded-full -left-2.5 top-1"></div>
+          <div class="glass p-5 rounded-xl transition hover:scale-[1.02] duration-300">
+            <h3 class="text-xl font-semibold text-white">Frontend Developer Intern @ XYZ Tech</h3>
+            <span class="text-sm text-pink-400">Jan 2021 - Jun 2021</span>
+            <p class="text-gray-300 mt-2">Built modern landing pages and dashboards using React and Tailwind. Improved load time by 30%.</p>
+          </div>
+        </div>
+        <div class="group relative" data-aos="fade-right" data-aos-delay="100">
+          <div class="absolute w-4 h-4 bg-pink-500 rounded-full -left-2.5 top-1"></div>
+          <div class="glass p-5 rounded-xl transition hover:scale-[1.02] duration-300">
+            <h3 class="text-xl font-semibold text-white">Jr. Web Developer @ CodeCrafters</h3>
+            <span class="text-sm text-pink-400">Jul 2021 - Dec 2022</span>
+            <p class="text-gray-300 mt-2">Developed reusable UI components, led mobile-first design efforts, and integrated REST APIs.</p>
+          </div>
+        </div>
+        <div class="group relative" data-aos="fade-right" data-aos-delay="200">
+          <div class="absolute w-4 h-4 bg-pink-500 rounded-full -left-2.5 top-1"></div>
+          <div class="glass p-5 rounded-xl transition hover:scale-[1.02] duration-300">
+            <h3 class="text-xl font-semibold text-white">Senior Frontend Engineer @ InnovateX</h3>
+            <span class="text-sm text-pink-400">Jan 2023 - Present</span>
+            <p class="text-gray-300 mt-2">Leading UI architecture, mentoring junior devs, and delivering highly interactive web apps using Vue and React.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="py-20 px-6 bg-gray-950">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-4xl font-bold text-white text-center mb-12" data-aos="fade-up">Skills</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="glass p-5 rounded-xl shadow-md flex items-center gap-4" data-aos="zoom-in">
+          <img src="https://img.icons8.com/color/48/html-5--v1.png" alt="HTML">
+          <span class="text-pink-400 font-medium">HTML & CSS</span>
+        </div>
+        <div class="glass p-5 rounded-xl shadow-md flex items-center gap-4" data-aos="zoom-in" data-aos-delay="100">
+          <img src="https://img.icons8.com/color/48/javascript--v1.png" alt="JavaScript">
+          <span class="text-pink-400 font-medium">JavaScript</span>
+        </div>
+        <div class="glass p-5 rounded-xl shadow-md flex items-center gap-4" data-aos="zoom-in" data-aos-delay="200">
+          <img src="https://img.icons8.com/color/48/tailwind_css.png" alt="Tailwind CSS">
+          <span class="text-pink-400 font-medium">Tailwind CSS</span>
+        </div>
+        <div class="glass p-5 rounded-xl shadow-md flex items-center gap-4" data-aos="zoom-in" data-aos-delay="300">
+          <img src="https://img.icons8.com/color/48/react-native.png" alt="React">
+          <span class="text-pink-400 font-medium">React / Vue</span>
+        </div>
+        <div class="glass p-5 rounded-xl shadow-md flex items-center gap-4" data-aos="zoom-in" data-aos-delay="400">
+          <img src="https://img.icons8.com/color/48/mongodb.png" alt="MERN">
+          <span class="text-pink-400 font-medium">MERN Stack</span>
+        </div>
+        <div class="glass p-5 rounded-xl shadow-md flex items-center gap-4" data-aos="zoom-in" data-aos-delay="500">
+          <img src="https://img.icons8.com/color/48/python--v1.png" alt="Python">
+          <span class="text-pink-400 font-medium">Python</span>
+        </div>
+        <div class="glass p-5 rounded-xl shadow-md flex items-center gap-4" data-aos="zoom-in" data-aos-delay="600">
+          <img src="https://img.icons8.com/color/48/amazon-web-services.png" alt="AWS">
+          <span class="text-pink-400 font-medium">AWS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer / Contact -->
+  <footer id="contact" class="py-10 text-center text-sm text-gray-500 bg-black">
+    <p>© 2025 Suraj Bari. All rights reserved.</p>
+  </footer>
+
+  <!-- Typing Effect Script -->
+  <script>
+    const roles = ["AWS developer associate ", "MERN Stack Engineer ", "Tailwind Designer "];
+    let i = 0, j = 0, isDeleting = false;
+    const speed = 100;
+    const typedText = document.getElementById("typedText");
+
+    function typeEffect() {
+      const role = roles[i];
+      if (isDeleting) {
+        typedText.textContent = role.substring(0, j--);
+      } else {
+        typedText.textContent = role.substring(0, j++);
+      }
+
+      if (!isDeleting && j === role.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, 1200);
+      } else if (isDeleting && j === 0) {
+        isDeleting = false;
+        i = (i + 1) % roles.length;
+        setTimeout(typeEffect, 400);
+      } else {
+        setTimeout(typeEffect, isDeleting ? 50 : speed);
+      }
+    }
+
+    window.onload = typeEffect;
+  </script>
+
+  <!-- AOS Animation Script -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      duration: 800,
+      easing: 'ease-in-out'
+    });
+  </script>
+
+</body>
+</html>
