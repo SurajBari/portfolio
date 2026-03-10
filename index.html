@@ -1,619 +1,501 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Suraj Bari | Portfolio</title>
+    <title>Suraj Bari | Premium Portfolio</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
-      rel="stylesheet"
-    />
-    <!-- AOS Animation CSS -->
-    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    
+    <!-- Google Fonts (Outfit) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet" />
+
     <style>
+      /* Base & Typography */
       body {
-        font-family: "Inter", sans-serif;
+        font-family: "Outfit", sans-serif;
+        background-color: #050505;
+        color: #ffffff;
+        cursor: none; /* Hide default cursor */
+        overflow-x: hidden;
       }
+
+      /* Custom Cursor */
+      .cursor-dot,
+      .cursor-outline {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 9999;
+        pointer-events: none;
+      }
+      .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background: #ec4899;
+      }
+      .cursor-outline {
+        width: 40px;
+        height: 40px;
+        border: 1px solid rgba(236, 72, 153, 0.6);
+        transition: width 0.15s ease-out, height 0.15s ease-out, background-color 0.15s ease-out;
+      }
+      /* Expand cursor on hover */
+      body.hovering .cursor-outline {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(236, 72, 153, 0.1);
+      }
+
+      @media (max-width: 768px) {
+        .cursor-dot, .cursor-outline { display: none; }
+        body { cursor: auto; }
+      }
+
+      /* Ambient Animated Background Orbs */
+      .bg-orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(100px);
+        z-index: -1;
+        opacity: 0.4;
+        animation: float 10s infinite ease-in-out alternate;
+        will-change: transform;
+      }
+      .orb-1 { width: 400px; height: 400px; background: #9333ea; top: -10%; left: -10%; }
+      .orb-2 { width: 500px; height: 500px; background: #ec4899; bottom: -20%; right: -10%; animation-delay: -5s; }
+      
+      @keyframes float {
+        0% { transform: translateY(0px) scale(1); }
+        100% { transform: translateY(50px) scale(1.1); }
+      }
+
+      /* Premium Glassmorphism */
+      .glass-premium {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Animated Profile Border */
+      .profile-container {
+        position: relative;
+        display: inline-block;
+      }
+      .profile-container::before {
+        content: "";
+        position: absolute;
+        inset: -5px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #ec4899, #9333ea, #3b82f6, #ec4899);
+        background-size: 200% 200%;
+        z-index: -1;
+        animation: gradientSpin 3s linear infinite;
+        filter: blur(8px);
+      }
+      @keyframes gradientSpin {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      /* Typing Effect Cursor */
       .typing::after {
         content: "|";
-        animation: blink 1s infinite;
+        animation: blink 0.8s infinite;
+        color: #ec4899;
       }
       @keyframes blink {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0;
-        }
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
       }
-      .glass {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+
+      /* Navbar Mobile Toggle */
+      .navbar-menu { display: none; }
+      .navbar-toggle:checked + .navbar-menu { display: block; animation: slideDown 0.2s ease-out forwards; }
+      
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
       }
-      html {
-        scroll-behavior: smooth;
+      
+      /* Smooth continuous floating for skill icons */
+      .icon-float {
+        animation: iconFloat 2.5s infinite ease-in-out alternate;
       }
-      .navbar-menu {
-        display: none;
-      }
-      .navbar-toggle:checked + .navbar-menu {
-        display: block;
+      @keyframes iconFloat {
+        0% { transform: translateY(0px); }
+        100% { transform: translateY(-6px); }
       }
     </style>
   </head>
-  <body
-    class="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white"
-  >
-    <!-- Navbar -->
-    <header
-      class="sticky top-0 z-50 bg-black/80 backdrop-blur border-b border-white/10"
-    >
-      <nav
-        class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center"
-      >
-        <h1 class="text-2xl font-bold text-lime-800">Suraj Bari</h1>
 
-        <!-- Toggle Button -->
+  <body class="antialiased selection:bg-pink-500 selection:text-white">
+    
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Ambient Background -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <!-- Navbar -->
+    <header class="fixed top-0 w-full z-50 glass-premium border-b border-white/5">
+      <nav class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center gs-reveal">
+        <h1 class="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 hover-target">
+          Suraj.
+        </h1>
+
+        <!-- Mobile Toggle -->
         <div class="lg:hidden">
-          <label for="navbar-toggle" class="text-white cursor-pointer">
+          <label for="navbar-toggle" class="text-white cursor-pointer hover-target">
             <i class="ph ph-list text-3xl"></i>
           </label>
           <input type="checkbox" id="navbar-toggle" class="hidden" />
+          
+          <ul class="navbar-menu absolute top-full left-0 w-full glass-premium p-6 space-y-6 text-center border-t border-white/10">
+            <li><a href="#home" class="block text-gray-300 hover:text-pink-400 font-semibold transition">Home</a></li>
+            <li><a href="#experience" class="block text-gray-300 hover:text-pink-400 font-semibold transition">Experience</a></li>
+            <li><a href="#skills" class="block text-gray-300 hover:text-pink-400 font-semibold transition">Skills</a></li>
+            <li><a href="#contact" class="block text-gray-300 hover:text-pink-400 font-semibold transition">Contact</a></li>
+          </ul>
         </div>
 
-        <!-- Navbar Links -->
-        <ul class="hidden lg:flex space-x-6 text-gray-300 font-medium text-sm">
-          <li><a href="#home" class="hover:text-pink-400">Home</a></li>
-          <li>
-            <a href="#experience" class="hover:text-pink-400">Experience</a>
-          </li>
-          <li><a href="#skills" class="hover:text-pink-400">Skills</a></li>
-          <li><a href="#contact" class="hover:text-pink-400">Contact</a></li>
-        </ul>
-
-        <!-- Mobile Menu -->
-        <ul
-          class="navbar-menu lg:hidden absolute top-16 left-0 w-full bg-black p-6 space-y-6 text-center"
-        >
-          <li><a href="#home" class="hover:text-pink-400">Home</a></li>
-          <li>
-            <a href="#experience" class="hover:text-pink-400">Experience</a>
-          </li>
-          <li><a href="#skills" class="hover:text-pink-400">Skills</a></li>
-          <li><a href="#contact" class="hover:text-pink-400">Contact</a></li>
+        <!-- Desktop Links -->
+        <ul class="hidden lg:flex space-x-8 text-gray-300 font-semibold text-sm">
+          <li><a href="#home" class="hover:text-pink-400 transition hover-target">Home</a></li>
+          <li><a href="#experience" class="hover:text-pink-400 transition hover-target">Experience</a></li>
+          <li><a href="#skills" class="hover:text-pink-400 transition hover-target">Skills</a></li>
+          <li><a href="#contact" class="hover:text-pink-400 transition hover-target">Contact</a></li>
         </ul>
       </nav>
     </header>
 
     <!-- Hero Section -->
-    <section
-      id="home"
-      class="min-h-screen flex items-center justify-center p-6"
-    >
-      <div
-        class="text-center max-w-2xl w-full glass rounded-2xl p-10 shadow-xl animate-fade-in"
-        data-aos="fade-up"
-      >
-        <img
-          src="https://media.licdn.com/dms/image/v2/D4D03AQHbAjhxNoPrCw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1675939813678?e=1750291200&v=beta&t=iJWMXW_wT-Ojt23A5RgO1PYH2v9uMMDcJ4PAwg2uTQs"
-          alt="Suraj Bari"
-          class="w-32 h-32 rounded-full mx-auto border-4 border-purple-500 mb-6 shadow-md hover:scale-105 transition"
-        />
-        <h1 class="text-4xl sm:text-5xl font-extrabold mb-2 text-white">
-          Suraj Bari
+    <section id="home" class="relative min-h-screen flex items-center justify-center p-6 pt-20">
+      <div class="text-center max-w-3xl w-full z-10">
+        <!-- Profile Image -->
+        <div class="hero-element profile-container mb-8">
+          <img
+            src="./suraj.png"
+            alt="Suraj Bari"
+            class="w-36 h-36 rounded-full mx-auto object-cover border-2 border-white/20"
+          />
+        </div>
+        
+        <h1 class="hero-element text-5xl sm:text-7xl font-extrabold mb-4 tracking-tight text-white">
+          Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">Suraj Bari</span>
         </h1>
-        <p id="typedText" class="text-xl text-pink-400 mb-4 typing">
-          Web Developer
-        </p>
-        <p class="text-gray-300 mb-6">
-          I build sleek,AWS architecture & high-performance frontends using
-          modern JavaScript and Tailwind CSS with React. frameworks. Always
-          chasing clean code & seamless user experiences.
+        
+        <h2 class="hero-element text-2xl sm:text-3xl font-medium text-gray-300 mb-6 h-10">
+          <span id="typedText" class="typing text-pink-400 drop-shadow-[0_0_10px_rgba(236,72,153,0.8)]"></span>
+        </h2>
+        
+        <p class="hero-element text-gray-400 text-lg sm:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
+          I build sleek, AWS-architected, & high-performance applications. Chasing clean code, scalable backends, & seamless user experiences.
         </p>
 
-        <div class="flex justify-center space-x-6 mb-6">
-          <a
-            href="https://github.com/surajbari"
-            target="_blank"
-            class="hover:scale-110 transition text-gray-400 hover:text-white"
-          >
-            <i class="ph ph-github-logo text-3xl"></i>
+        <div class="hero-element flex justify-center space-x-8 mb-10">
+          <a href="https://github.com/surajbari" target="_blank" class="hover-target text-gray-400 hover:text-white transition transform hover:-translate-y-2 duration-300">
+            <i class="ph ph-github-logo text-4xl"></i>
           </a>
-          <a
-            href="https://linkedin.com/in/surajbari"
-            target="_blank"
-            class="hover:scale-110 transition text-gray-400 hover:text-blue-400"
-          >
-            <i class="ph ph-linkedin-logo text-3xl"></i>
+          <a href="https://linkedin.com/in/surajbari" target="_blank" class="hover-target text-gray-400 hover:text-[#0a66c2] transition transform hover:-translate-y-2 duration-300">
+            <i class="ph ph-linkedin-logo text-4xl"></i>
           </a>
-          <a
-            href="https://instagram.com/surajbari"
-            target="_blank"
-            class="hover:scale-110 transition text-gray-400 hover:text-pink-500"
-          >
-            <i class="ph ph-instagram-logo text-3xl"></i>
+          <a href="https://instagram.com/surajbari" target="_blank" class="hover-target text-gray-400 hover:text-pink-500 transition transform hover:-translate-y-2 duration-300">
+            <i class="ph ph-instagram-logo text-4xl"></i>
           </a>
         </div>
 
-        <div class="flex justify-center gap-4">
-          <button
-            class="bg-pink-600 hover:bg-pink-700 transition px-6 py-2 rounded-full font-semibold shadow-lg"
-          >
-            Contact Me
-          </button>
-          <a
-            href="Suraj-Bari-Resume.pdf"
-            download
-            class="bg-white text-black font-semibold px-6 py-2 rounded-full shadow-md hover:bg-gray-200 transition"
-          >
-            Download Resume
+        <div class="hero-element flex flex-col sm:flex-row justify-center items-center gap-6">
+          <a href="#contact" class="hover-target relative inline-flex group">
+            <div class="absolute transition-all duration-500 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
+            <button class="relative inline-flex items-center justify-center px-8 py-3 text-lg font-bold text-white transition-all duration-200 bg-gray-900 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
+              Let's Connect
+            </button>
+          </a>
+          <a href="Suraj-Bari-Resume.pdf" download class="hover-target group flex items-center gap-2 text-white font-semibold px-8 py-3 rounded-full border border-white/20 hover:bg-white hover:text-black transition-all duration-300">
+            Download Resume <i class="ph ph-download-simple group-hover:animate-bounce"></i>
           </a>
         </div>
       </div>
     </section>
 
     <!-- Experience Roadmap -->
-    <!-- Experience Roadmap -->
-    <!-- Experience Roadmap -->
-    <section
-      id="experience"
-      class="py-20 px-4 bg-gradient-to-b from-black to-gray-900"
-    >
-      <div class="max-w-5xl mx-auto">
-        <h2
-          class="text-4xl font-bold text-white text-center mb-16"
-          data-aos="fade-up"
-        >
+    <section id="experience" class="py-24 px-6 relative z-10">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 text-center mb-20">
           My Journey
         </h2>
-        <div class="relative border-l-4 border-pink-500 pl-6 space-y-16">
-          <!-- Timeline Item -->
-          <div
-            class="group relative"
-            data-aos="fade-right"
-            data-aos-delay="100"
-          >
-            <div
-              class="absolute -left-[30px] top-1 w-6 h-6 bg-pink-600 rounded-full border-4 border-white shadow-lg group-hover:scale-110 transition-transform duration-300"
-            ></div>
-            <div
-              class="glass p-6 rounded-2xl transform transition-transform group-hover:scale-[1.03] shadow-2xl border border-pink-500/30 hover:border-pink-500"
-            >
-              <h3
-                class="text-xl font-semibold text-white flex items-center gap-2"
-              >
-                <i class="ph ph-briefcase text-pink-400"></i> Frontend Developer
-                Intern @ XYZ Tech
-              </h3>
-              <span class="text-sm text-pink-300">Jan 2021 - Jun 2021</span>
-              <p class="text-gray-300 mt-3 leading-relaxed">
-                Built modern landing pages and dashboards using React and
-                Tailwind. Improved load time by 30%.
+        
+        <div class="relative border-l-2 border-pink-500/30 pl-8 space-y-12">
+          
+          <!-- Timeline Item 1 -->
+          <div class="timeline-item relative">
+            <div class="absolute -left-[41px] top-4 w-5 h-5 bg-black rounded-full border-4 border-pink-500 shadow-[0_0_15px_#ec4899]"></div>
+            <div class="glass-premium p-8 rounded-2xl border-l-4 border-l-pink-500 hover:border-l-pink-400 transition-colors card-tilt">
+              <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                <h3 class="text-2xl font-bold text-white flex items-center gap-3">
+                  <i class="ph ph-rocket-launch text-pink-400 text-3xl"></i> Senior Frontend Engineer
+                </h3>
+                <span class="inline-block mt-2 md:mt-0 px-4 py-1 rounded-full bg-pink-500/10 text-pink-400 text-sm font-semibold border border-pink-500/20">Jan 2023 - Present</span>
+              </div>
+              <h4 class="text-lg text-gray-400 font-medium mb-4">InnovateX</h4>
+              <p class="text-gray-300 leading-relaxed">
+                Leading UI architecture, mentoring junior devs, and delivering highly interactive web apps using Vue and React. Architected serverless solutions on AWS.
               </p>
             </div>
           </div>
 
-          <!-- Timeline Item -->
-          <div
-            class="group relative"
-            data-aos="fade-right"
-            data-aos-delay="200"
-          >
-            <div
-              class="absolute -left-[30px] top-1 w-6 h-6 bg-pink-600 rounded-full border-4 border-white shadow-lg group-hover:scale-110 transition-transform duration-300"
-            ></div>
-            <div
-              class="glass p-6 rounded-2xl transform transition-transform group-hover:scale-[1.03] shadow-2xl border border-pink-500/30 hover:border-pink-500"
-            >
-              <h3
-                class="text-xl font-semibold text-white flex items-center gap-2"
-              >
-                <i class="ph ph-code-simple text-pink-400"></i> Jr. Web
-                Developer @ CodeCrafters
-              </h3>
-              <span class="text-sm text-pink-300">Jul 2021 - Dec 2022</span>
-              <p class="text-gray-300 mt-3 leading-relaxed">
-                Developed reusable UI components, led mobile-first design
-                efforts, and integrated REST APIs.
+          <!-- Timeline Item 2 -->
+          <div class="timeline-item relative">
+            <div class="absolute -left-[41px] top-4 w-5 h-5 bg-black rounded-full border-4 border-purple-500 shadow-[0_0_15px_#a855f7]"></div>
+            <div class="glass-premium p-8 rounded-2xl border-l-4 border-l-purple-500 hover:border-l-purple-400 transition-colors card-tilt">
+              <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                <h3 class="text-2xl font-bold text-white flex items-center gap-3">
+                  <i class="ph ph-code-simple text-purple-400 text-3xl"></i> Jr. Web Developer
+                </h3>
+                <span class="inline-block mt-2 md:mt-0 px-4 py-1 rounded-full bg-purple-500/10 text-purple-400 text-sm font-semibold border border-purple-500/20">Jul 2021 - Dec 2022</span>
+              </div>
+              <h4 class="text-lg text-gray-400 font-medium mb-4">CodeCrafters</h4>
+              <p class="text-gray-300 leading-relaxed">
+                Developed reusable UI components, led mobile-first design efforts, and integrated REST APIs. Improved core web vitals significantly.
               </p>
             </div>
           </div>
 
-          <!-- Timeline Item -->
-          <div
-            class="group relative"
-            data-aos="fade-right"
-            data-aos-delay="300"
-          >
-            <div
-              class="absolute -left-[30px] top-1 w-6 h-6 bg-pink-600 rounded-full border-4 border-white shadow-lg group-hover:scale-110 transition-transform duration-300"
-            ></div>
-            <div
-              class="glass p-6 rounded-2xl transform transition-transform group-hover:scale-[1.03] shadow-2xl border border-pink-500/30 hover:border-pink-500"
-            >
-              <h3
-                class="text-xl font-semibold text-white flex items-center gap-2"
-              >
-                <i class="ph ph-rocket-launch text-pink-400"></i> Senior
-                Frontend Engineer @ InnovateX
-              </h3>
-              <span class="text-sm text-pink-300">Jan 2023 - Present</span>
-              <p class="text-gray-300 mt-3 leading-relaxed">
-                Leading UI architecture, mentoring junior devs, and delivering
-                highly interactive web apps using Vue and React.
+          <!-- Timeline Item 3 -->
+          <div class="timeline-item relative">
+            <div class="absolute -left-[41px] top-4 w-5 h-5 bg-black rounded-full border-4 border-blue-500 shadow-[0_0_15px_#3b82f6]"></div>
+            <div class="glass-premium p-8 rounded-2xl border-l-4 border-l-blue-500 hover:border-l-blue-400 transition-colors card-tilt">
+              <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                <h3 class="text-2xl font-bold text-white flex items-center gap-3">
+                  <i class="ph ph-briefcase text-blue-400 text-3xl"></i> Frontend Intern
+                </h3>
+                <span class="inline-block mt-2 md:mt-0 px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-sm font-semibold border border-blue-500/20">Jan 2021 - Jun 2021</span>
+              </div>
+              <h4 class="text-lg text-gray-400 font-medium mb-4">XYZ Tech</h4>
+              <p class="text-gray-300 leading-relaxed">
+                Built modern landing pages and dashboards using React and Tailwind CSS. Improved application initial load time by 30%.
               </p>
             </div>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- Skills -->
-    <!-- Skills -->
-    <section id="skills" class="py-20 px-6 bg-gray-950">
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-6 relative z-10">
       <div class="max-w-6xl mx-auto text-center">
-        <h2 class="text-4xl font-bold text-white mb-12" data-aos="fade-up">
-          Skills
+        <h2 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 mb-16">
+          Tech Arsenal
         </h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-          <!-- HTML & CSS -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-pink-500 transition shadow-xl"
-            data-aos="zoom-in"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-pink-500 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/color/48/html-5--v1.png"
-                alt="HTML"
-              />
-            </div>
-            <p class="mt-4 text-pink-400 font-semibold">HTML & CSS</p>
-          </div>
-
-          <!-- JavaScript -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-yellow-400 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="100"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-yellow-400 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/color/48/javascript--v1.png"
-                alt="JavaScript"
-              />
-            </div>
-            <p class="mt-4 text-yellow-300 font-semibold">JavaScript</p>
-          </div>
-
-          <!-- Tailwind CSS -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-cyan-400 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="200"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-cyan-400 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/color/48/tailwind_css.png"
-                alt="Tailwind CSS"
-              />
-            </div>
-            <p class="mt-4 text-cyan-300 font-semibold">Tailwind CSS</p>
-          </div>
-
-          <!-- React / Vue -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-sky-500 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="300"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-sky-500 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/color/48/react-native.png"
-                alt="React"
-              />
-            </div>
-            <p class="mt-4 text-sky-400 font-semibold">React</p>
-          </div>
-
-          <!-- MERN Stack -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-green-400 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="400"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-green-400 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/?size=100&id=bosfpvRzNOG8&format=png&color=000000"
-                alt="MongoDB"
-              />
-            </div>
-            <p class="mt-4 text-green-400 font-semibold">MongoDB</p>
-          </div>
-
-          <!-- Python -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-indigo-400 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="500"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-indigo-400 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/color/48/python--v1.png"
-                alt="Python"
-              />
-            </div>
-            <p class="mt-4 text-indigo-300 font-semibold">Python</p>
-          </div>
-
-          <!-- AWS -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-orange-400 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="600"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-orange-400 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/color/48/amazon-web-services.png"
-                alt="AWS"
-              />
-            </div>
-            <p class="mt-4 text-orange-300 font-semibold">AWS</p>
-          </div>
-
-          <!-- Bash -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-gray-500 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="1000"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-gray-500 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/?size=100&id=TMZAZMLFozcL&format=png&color=000000"
-                alt="Bash"
-              />
-            </div>
-            <p class="mt-4 text-yellow-400 font-semibold">Bash</p>
-          </div>
-          <!-- SQL -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-blue-700 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="1500"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-blue-700 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/?size=100&id=J6KcaRLsTgpZ&format=png&color=000000"
-                alt="SQL"
-              />
-            </div>
-            <p class="mt-4 text-blue-400 font-semibold">SQL</p>
-          </div>
-
-          <!-- Linux -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-stone-600 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="1100"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-stone-600 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/color/48/linux.png"
-                alt="Linux"
-              />
-            </div>
-            <p class="mt-4 text-white-400 font-semibold">Linux</p>
-          </div>
-
-          <!-- Node.js -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-green-700 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="1200"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-green-500 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/?size=100&id=54087&format=png&color=000000"
-                alt="Node.js"
-              />
-            </div>
-            <p class="mt-4 text-green-500 font-semibold">Node.js</p>
-          </div>
-          <!-- Express.js -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-gray-300 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="1900"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-gray-300 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/ios/50/ffffff/express-js.png"
-                alt="Express.js"
-              />
-            </div>
-            <p class="mt-4 text-gray-300 font-semibold">Express.js</p>
-          </div>
-          <!-- Android -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-green-500 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="2000"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-green-500 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/color/48/android-os.png"
-                alt="Android"
-              />
-            </div>
-            <p class="mt-4 text-green-400 font-semibold">Android</p>
-          </div>
-          <!-- VS Code -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-blue-500 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="2100"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-blue-500 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/fluent/48/visual-studio-code-2019.png"
-                alt="VS Code"
-              />
-            </div>
-            <p class="mt-4 text-blue-400 font-semibold">VS Code</p>
-          </div>
-
-          <!-- Docker -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-blue-500 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="1300"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-blue-500 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/?size=100&id=22813&format=png&color=000000"
-                alt="Docker"
-              />
-            </div>
-            <p class="mt-4 text-blue-400 font-semibold">Docker</p>
-          </div>
-
-          <!-- GitHub -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-black transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="1400"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-black group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/?size=100&id=3tC9EQumUAuq&format=png&color=000000"
-                alt="GitHub"
-              />
-            </div>
-            <p class="mt-4 text-white font-semibold">GitHub</p>
-          </div>
-          <!-- Java -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-red-600 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="1500"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-red-600 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/?size=100&id=Pd2x9GWu9ovX&format=png&color=000000"
-                alt="Java"
-              />
-            </div>
-            <p class="mt-4 text-red-500 font-semibold">Java</p>
-          </div>
-
-          <!-- C Language -->
-          <div
-            class="group bg-black/20 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-blue-800 transition shadow-xl"
-            data-aos="zoom-in"
-            data-aos-delay="1600"
-          >
-            <div
-              class="w-16 h-16 mx-auto flex items-center justify-center rounded-full glass border border-blue-800 group-hover:scale-105 transition"
-            >
-              <img
-                src="https://img.icons8.com/?size=100&id=40670&format=png&color=000000"
-                alt="C Language"
-              />
-            </div>
-            <p class="mt-4 text-blue-400 font-semibold">C Language</p>
-          </div>
+        
+        <!-- Grid Populated Instantly by JS -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6" id="skills-grid">
         </div>
       </div>
     </section>
 
     <!-- Footer / Contact -->
-    <footer
-      id="contact"
-      class="py-10 text-center text-sm text-gray-500 bg-black"
-    >
-      <p>© 2025 Suraj Bari. All rights reserved.</p>
+    <footer id="contact" class="relative z-10 border-t border-white/10 bg-black/50 backdrop-blur-md pt-16 pb-8 text-center mt-10">
+      <div class="max-w-3xl mx-auto px-6 mb-12">
+        <h2 class="text-3xl font-bold mb-6">Let's Build Something Great.</h2>
+        <p class="text-gray-400 mb-8">I'm currently open for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
+        <a href="mailto:suraj@example.com" class="hover-target inline-flex items-center gap-2 bg-white text-black font-bold px-8 py-4 rounded-full hover:scale-105 transition-transform">
+          Say Hello <i class="ph ph-paper-plane-tilt text-xl"></i>
+        </a>
+      </div>
+      <p class="text-gray-600 text-sm tracking-wider">© 2026 SURAJ BARI. CRAFTED WITH PASSION.</p>
     </footer>
 
-    <!-- Typing Effect Script -->
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Vanilla Tilt for 3D Cards -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
     <script>
-      const roles = [
-        "AWS developer associate ",
-        "MERN Stack Engineer ",
-        "Tailwind Designer ",
-      ];
-      let i = 0,
-        j = 0,
-        isDeleting = false;
-      const speed = 100;
+      /* =========================================
+         1. Custom Cursor Logic
+         ========================================= */
+      const cursorDot = document.querySelector('.cursor-dot');
+      const cursorOutline = document.querySelector('.cursor-outline');
+
+      window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
+
+        cursorOutline.animate({
+          left: `${posX}px`,
+          top: `${posY}px`
+        }, { duration: 250, fill: "forwards" }); 
+      });
+
+      // Delegate hover effect universally
+      document.body.addEventListener('mouseover', (e) => {
+        if (e.target.closest('.hover-target') || e.target.closest('a') || e.target.closest('button')) {
+          document.body.classList.add('hovering');
+        } else {
+          document.body.classList.remove('hovering');
+        }
+      });
+
+      /* =========================================
+         2. Typing Effect (COMPLETELY FIXED)
+         ========================================= */
+      const roles =["AWS Developer Associate", "MERN Stack Engineer", "Frontend Architect", "Tailwind Master"];
+      let roleIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
       const typedText = document.getElementById("typedText");
 
       function typeEffect() {
-        const role = roles[i];
+        const currentRole = roles[roleIndex];
+        
+        // Use substring to progressively show/hide characters
         if (isDeleting) {
-          typedText.textContent = role.substring(0, j--);
+          typedText.textContent = currentRole.substring(0, charIndex - 1);
+          charIndex--;
         } else {
-          typedText.textContent = role.substring(0, j++);
+          typedText.textContent = currentRole.substring(0, charIndex + 1);
+          charIndex++;
         }
 
-        if (!isDeleting && j === role.length) {
+        // Determine typing speed (deleting is faster)
+        let typeSpeed = isDeleting ? 40 : 80;
+
+        // Check if word is fully typed
+        if (!isDeleting && charIndex === currentRole.length) {
+          typeSpeed = 1500; // Pause at the end of the word
           isDeleting = true;
-          setTimeout(typeEffect, 1200);
-        } else if (isDeleting && j === 0) {
+        } 
+        // Check if word is fully deleted
+        else if (isDeleting && charIndex === 0) {
           isDeleting = false;
-          i = (i + 1) % roles.length;
-          setTimeout(typeEffect, 400);
-        } else {
-          setTimeout(typeEffect, isDeleting ? 50 : speed);
+          roleIndex = (roleIndex + 1) % roles.length; // Move to next word
+          typeSpeed = 400; // Pause before typing next word
         }
+
+        setTimeout(typeEffect, typeSpeed);
       }
+      // Start typing loop
+      setTimeout(typeEffect, 500);
 
-      window.onload = typeEffect;
-    </script>
 
-    <!-- AOS Animation Script -->
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script>
-      AOS.init({
-        once: true,
-        duration: 800,
-        easing: "ease-in-out",
+      /* =========================================
+         3. Dynamic Skills Injection & 3D Tilt
+         ========================================= */
+      const skillsData =[
+        { name: "HTML5", img: "https://img.icons8.com/color/48/html-5--v1.png", color: "hover:border-orange-500", glow: "hover:shadow-[0_0_20px_rgba(249,115,22,0.4)]" },
+        { name: "CSS3", img: "https://img.icons8.com/color/48/css3.png", color: "hover:border-blue-500", glow: "hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]" },
+        { name: "JavaScript", img: "https://img.icons8.com/color/48/javascript--v1.png", color: "hover:border-yellow-400", glow: "hover:shadow-[0_0_20px_rgba(250,204,21,0.4)]" },
+        { name: "Tailwind", img: "https://img.icons8.com/color/48/tailwind_css.png", color: "hover:border-cyan-400", glow: "hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]" },
+        { name: "React", img: "https://img.icons8.com/color/48/react-native.png", color: "hover:border-sky-500", glow: "hover:shadow-[0_0_20px_rgba(14,165,233,0.4)]" },
+        { name: "MongoDB", img: "https://img.icons8.com/?size=100&id=bosfpvRzNOG8&format=png&color=000000", color: "hover:border-green-500", glow: "hover:shadow-[0_0_20px_rgba(34,197,94,0.4)]" },
+        { name: "Node.js", img: "https://img.icons8.com/?size=100&id=54087&format=png&color=000000", color: "hover:border-green-400", glow: "hover:shadow-[0_0_20px_rgba(74,222,128,0.4)]" },
+        { name: "Express.js", img: "https://img.icons8.com/ios/50/ffffff/express-js.png", color: "hover:border-gray-400", glow: "hover:shadow-[0_0_20px_rgba(156,163,175,0.4)]" },
+        { name: "AWS", img: "https://img.icons8.com/color/48/amazon-web-services.png", color: "hover:border-orange-400", glow: "hover:shadow-[0_0_20px_rgba(251,146,60,0.4)]" },
+        { name: "Python", img: "https://img.icons8.com/color/48/python--v1.png", color: "hover:border-indigo-400", glow: "hover:shadow-[0_0_20px_rgba(129,140,248,0.4)]" },
+        { name: "Docker", img: "https://img.icons8.com/?size=100&id=22813&format=png&color=000000", color: "hover:border-blue-600", glow: "hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]" },
+        { name: "Linux", img: "https://img.icons8.com/color/48/linux.png", color: "hover:border-yellow-200", glow: "hover:shadow-[0_0_20px_rgba(253,230,138,0.4)]" },
+        { name: "SQL", img: "https://img.icons8.com/?size=100&id=J6KcaRLsTgpZ&format=png&color=000000", color: "hover:border-blue-400", glow: "hover:shadow-[0_0_20px_rgba(96,165,250,0.4)]" },
+        { name: "GitHub", img: "https://img.icons8.com/fluent-systems-filled/48/ffffff/github.png", color: "hover:border-gray-500", glow: "hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]" },
+        { name: "Java", img: "https://img.icons8.com/?size=100&id=Pd2x9GWu9ovX&format=png&color=000000", color: "hover:border-red-500", glow: "hover:shadow-[0_0_20px_rgba(239,68,68,0.4)]" }
+      ];
+
+      const skillsGrid = document.getElementById('skills-grid');
+      let skillsHTML = ""; 
+      skillsData.forEach((skill, index) => {
+        const floatDelay = (index % 3) * 0.3; 
+        
+        // The wrapper handles the GSAP intro, the inner card handles the Vanilla Tilt. 
+        skillsHTML += `
+          <div class="skill-wrapper h-full"> 
+            <div class="skill-card group hover-target glass-premium p-6 rounded-2xl flex flex-col items-center justify-center border border-white/5 cursor-pointer h-full transition-colors transition-shadow duration-300 ${skill.color} ${skill.glow}">
+              <div class="w-16 h-16 mb-4 flex items-center justify-center icon-float" style="animation-delay: ${floatDelay}s">
+                <img src="${skill.img}" alt="${skill.name}" class="w-full h-full object-contain filter drop-shadow-lg" loading="lazy" />
+              </div>
+              <p class="font-semibold text-gray-300 group-hover:text-white transition-colors">${skill.name}</p>
+            </div>
+          </div>
+        `;
+      });
+      skillsGrid.innerHTML = skillsHTML;
+
+      // Initialize Tilt ONLY on the inner card
+      VanillaTilt.init(document.querySelectorAll(".card-tilt"), {
+          max: 3,
+          speed: 400,
+          glare: true,
+          "max-glare": 0.2
+      });
+      
+      VanillaTilt.init(document.querySelectorAll(".skill-card"), {
+          max: 15, 
+          speed: 400,
+          glare: true,
+          "max-glare": 0.3
+      });
+
+      /* =========================================
+         4. GSAP & ScrollTrigger Animations
+         ========================================= */
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Instant Navbar Reveal
+      gsap.from(".gs-reveal", { y: -30, opacity: 0, duration: 0.8, ease: "power3.out" });
+
+      // Faster Hero Elements Staggered Entrance
+      gsap.from(".hero-element", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power4.out"
+      });
+
+      // Experience Timeline
+      const timelineItems = gsap.utils.toArray('.timeline-item');
+      timelineItems.forEach((item, i) => {
+        gsap.from(item, {
+          scrollTrigger: {
+            trigger: item,
+            start: "top 90%",
+            toggleActions: "play none none reverse"
+          },
+          x: -40,
+          opacity: 0,
+          duration: 0.6,
+          ease: "power2.out"
+        });
+      });
+
+      // Skills Cards - GSAP animates the WRAPPER so it doesn't break Vanilla Tilt
+      gsap.from(".skill-wrapper", {
+        scrollTrigger: {
+          trigger: "#skills",
+          start: "top 85%", 
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.04, 
+        ease: "back.out(1.5)"
       });
     </script>
   </body>
